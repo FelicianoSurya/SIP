@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Place;
+use App\Models\Employee;
+use Auth;
+use Illuminate\Support\Facades\Response;
 
 class HomeController extends Controller
 {
@@ -13,7 +17,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
@@ -23,6 +27,25 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $params = Place::with(['type','isp','isp.isp'])->paginate(10);
+        $userId = Auth::user()->id;
+        $userName = Employee::where('id',$userId)->first();
+        // return response()->json([
+        //     'data' => $params
+        // ]);
+        return view('home',[
+            'data' => $params,
+            'userName' => $userName
+        ]);
+    }
+
+    public function detailPlace($placeId){
+        $params = Place::with(['type','isp','isp.isp'])->where('id',$placeId)->first();
+        // return response()->json([
+        //     'data' => $params
+        // ]);
+        return view('detailPlace',[
+            'data' => $params
+        ]);
     }
 }

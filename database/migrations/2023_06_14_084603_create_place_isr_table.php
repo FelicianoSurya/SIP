@@ -13,10 +13,10 @@ class CreatePlaceIsrTable extends Migration
      */
     public function up()
     {
-        Schema::create('place_isr', function (Blueprint $table) {
+        Schema::create('place_isp', function (Blueprint $table) {
             $table->id();
-            $table->integer('place_id');
-            $table->integer('isp_id');
+            $table->integer('placeId');
+            $table->integer('ispId');
             $table->timestamps();
         });
     }

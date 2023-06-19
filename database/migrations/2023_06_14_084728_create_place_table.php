@@ -16,10 +16,10 @@ class CreatePlaceTable extends Migration
         Schema::create('place', function (Blueprint $table) {
             $table->id();
             $table->string("name");
-            $table->string("alamat");
-            $table->string("phone_number");
-            $table->string("created_by");
-            $table->integer("place_type_id");
+            $table->string("address");
+            $table->string("phoneNumber");
+            $table->string("createdBy");
+            $table->integer("typeId");
             $table->timestamps();
         });
     }
