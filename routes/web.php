@@ -24,6 +24,6 @@ Auth::routes([
 
 
 // Route::group(['middleware' => 'auth'], function(){
-Route::get('/', [HomeController::class,'index'])->name('index');
+Route::get('/', [HomeController::class,'index'])->middleware('auth');
 Route::get('/{placeId}',[HomeController::class,'detailPlace']);
 // });
