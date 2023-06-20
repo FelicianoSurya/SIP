@@ -30,9 +30,9 @@ class HomeController extends Controller
         $params = Place::with(['type','isp','isp.isp'])->paginate(10);
         $userId = Auth::user()->id;
         $userName = Employee::where('id',$userId)->first();
-        // return response()->json([
-        //     'data' => $params
-        // ]);
+//         return response()->json([
+//             'data' => $params
+//         ]);
         return view('home',[
             'data' => $params,
             'userName' => $userName
@@ -41,9 +41,9 @@ class HomeController extends Controller
 
     public function detailPlace($placeId){
         $params = Place::with(['type','isp','isp.isp'])->where('id',$placeId)->first();
-        // return response()->json([
-        //     'data' => $params
-        // ]);
+//         return response()->json([
+//             'data' => $params
+//         ]);
         return view('detailPlace',[
             'data' => $params
         ]);
