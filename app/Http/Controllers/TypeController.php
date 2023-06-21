@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Type;
 
 class TypeController extends Controller
 {
@@ -13,7 +14,11 @@ class TypeController extends Controller
      */
     public function index()
     {
-        return view('type');
+        $params = Type::all();
+        return response()->json($params);
+        return view('type',[
+            'data' => $params
+        ]);
     }
 
     /**

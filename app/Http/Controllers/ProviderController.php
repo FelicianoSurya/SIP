@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\PlaceIsp;
+use App\Models\Isp;
 
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
@@ -12,7 +13,11 @@ class ProviderController extends Controller
 {
 
     public function index(){
-        return view('provider');
+        $params = Isp::all();
+        return response()->json($params);
+        return view('provider',[
+            'data' => $params
+        ]);
     }
     
     public function postProviderPlace(Request $request){
