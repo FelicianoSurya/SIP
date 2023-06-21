@@ -58,7 +58,7 @@
                 <thead class="thead-dark">
                     <tr class="text-center">
                         <th>#</th>
-                        <th>Location Name</th>
+                        <th>Location Names</th>
                         <th>Address</th>
                         <th>PIC Place Phone Number</th>
                         <th>Place Type</th>

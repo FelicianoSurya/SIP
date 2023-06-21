@@ -42,6 +42,10 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/provider/delete/{idProdvider}', [ProviderController::class, 'deleteProvider']);
 });
 
+Route::get('/type/delete/{idType}', [TypeController::class, 'deleteType']);
+Route::get('/isp/delete/{idIsp}', [ProviderController::class, 'deleteIsp']);
+Route::get('/user/delete/{idUser}', [UserController::class, 'deleteUser']);
+
 Route::get("/user", [UserController::class,'index']);
 Route::get("/type", [TypeController::class, 'index']);
 Route::get("/provider", [ProviderController::class,'index']);

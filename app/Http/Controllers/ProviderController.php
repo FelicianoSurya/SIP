@@ -14,7 +14,7 @@ class ProviderController extends Controller
 
     public function index(){
         $params = Isp::all();
-        return response()->json($params);
+        // return response()->json($params);
         return view('provider',[
             'data' => $params
         ]);
@@ -74,5 +74,16 @@ class ProviderController extends Controller
         
         $provider->save();
         return response()->json($provider);
+    }
+
+    // function ini untuk delete dari provider list http://127.0.0.1:8000/provider
+    public function deleteIsp($idIsp){
+        $params = Isp::find($idIsp);
+        if($params){
+            $params->delete();
+            return back();
+        }else{
+            return back();
+        }
     }
 }

@@ -15,7 +15,7 @@ class TypeController extends Controller
     public function index()
     {
         $params = Type::all();
-        return response()->json($params);
+        // return response()->json($params);
         return view('type',[
             'data' => $params
         ]);
@@ -73,6 +73,7 @@ class TypeController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
         //
     }
 
@@ -82,8 +83,15 @@ class TypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function deleteType($idType)
     {
+        $params = Type::find($idType);
+        if($params){
+            $params->delete();
+            return back();
+        }else{
+            return back();
+        }
         //
     }
 }
