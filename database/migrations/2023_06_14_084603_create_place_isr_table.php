@@ -17,6 +17,8 @@ class CreatePlaceIsrTable extends Migration
             $table->id();
             $table->integer('placeId');
             $table->integer('ispId');
+            $table->string("phoneNumber");
+            $table->string('pic_name');
             $table->timestamps();
         });
     }

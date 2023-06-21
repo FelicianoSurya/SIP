@@ -16,7 +16,6 @@ class CreateIspTable extends Migration
         Schema::create('isp', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string("phoneNumber");
             $table->timestamps();
         });
     }

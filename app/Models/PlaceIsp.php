@@ -11,7 +11,9 @@ class PlaceIsp extends Model
     protected $table = 'place_isp';
     protected $fillable = [
         'placeId',
-        'ispId'
+        'ispId',
+        'phoneNumber',
+        'pic_name'
     ];
 
     public function isp(){

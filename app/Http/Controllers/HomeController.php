@@ -5,8 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Place;
 use App\Models\Employee;
+use App\Models\Type;
+use App\Models\Isp;
+use App\Models\PlaceIsp;
 use Auth;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
@@ -27,25 +31,121 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $params = Place::with(['type','isp','isp.isp'])->paginate(10);
+        $params = Place::with(['type','isp','isp.isp'])->orderBy("created_at","DESC")->paginate(10);
         $userId = Auth::user()->id;
         $userName = Employee::where('id',$userId)->first();
-//         return response()->json([
-//             'data' => $params
-//         ]);
+        $dataType = Type::all();
         return view('home',[
             'data' => $params,
-            'userName' => $userName
+            'userName' => $userName,
+            'dataType' => $dataType 
         ]);
+    }
+
+    public function addPlace()
+    {
+        return view('formPlace');
     }
 
     public function detailPlace($placeId){
         $params = Place::with(['type','isp','isp.isp'])->where('id',$placeId)->first();
-//         return response()->json([
-//             'data' => $params
-//         ]);
+        $data = PlaceIsp::with(['isp'])->where('placeId', $placeId)->get();
+        $row = $data->count();
+        $ispData = Isp::all();
+        $dataType = Type::all();
+
         return view('detailPlace',[
-            'data' => $params
+            'data' => $params,
+            'isp' => $data,
+            'placeId' => $placeId,
+            'ispData' => $ispData,
+            'row' => $row,
+            'dataType' => $dataType
         ]);
+    }
+
+    public function postPlace(Request $request){
+        $validate = Validator::make($request->all(),[
+            'name' => 'required',
+            'address' => 'required',
+            'phoneNumber' => 'required',
+            'typeId' => 'required',
+        ]);
+
+        if($validate->fails()){
+            $request->session()->flash('validate','failed');
+            return back()->withErrors($validate);
+        }
+
+        $params = Place::create([
+            'name' => $request->name,
+            'address' => $request->address,
+            'phoneNumber' => $request->phoneNumber,
+            'typeId' => $request->typeId,
+            'createdBy' => $request->userId
+        ]);
+
+        return back();
+    }
+
+    public function postProvider(Request $request){
+        $validate = Validator::make($request->all(),[
+            'name' => 'required',
+            'phoneNumber' => 'required',
+            'pic_name' => 'required',
+        ]);
+
+        if($validate->fails()){
+            $request->session()->flash('validate','failed');
+            return back()->withErrors($validate);
+        }
+
+        $params = Isp::create([
+            'name' => $request->name,
+            'phoneNumber' => $request->phoneNumber,
+            'pic_name' => $request->pic_name,
+        ]);
+
+        return back();
+    }
+
+    public function clearProvider($placeId){
+        $params = PlaceIsp::where('placeId',$placeId)->delete();
+        return back();
+    }
+
+    public function editPlace(Request $request){
+        $id = $request->id;
+        $place = Place::find($id);
+
+        $validate = Validator::make($request->all(),[
+            'name' => 'required',
+            'address' => 'required',
+            'phoneNumber' => 'required',
+            'typeId' => 'required'
+        ]);
+
+        if($validate->fails()){
+            return back();
+        }
+
+        $place->fill([
+            'name' => $request->name,
+            'address' => $request->address,
+            'phoneNumber' => $request->phoneNumber,
+            'typeId' => $request->typeId
+        ]);
+
+        $place->save();
+        return back();
+    }
+
+    public function deletePlace($idPlace){
+        $params = Place::find($idPlace);
+
+        if($params){
+            $params->delete();
+            return redirect('/');
+        }
     }
 }

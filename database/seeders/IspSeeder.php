@@ -17,23 +17,19 @@ class IspSeeder extends Seeder
         $isp = [
             [
                 'name' => 'netZAP',
-                'phoneNumber' => '0837448844'
             ],
             [
                 'name' => 'Indihome',
-                'phoneNumber' => '0877373733'
             ],
             [
                 'name' => 'Biznet',
-                'phoneNumber' => '33939393939'
             ],
             [
                 'name' => 'oxygen',
-                'phoneNumber' => '0883335353'
+
             ],
             [
                 'name' => 'MyRepublic',
-                'phoneNumber' => '0838838383'
             ],
         ];
         foreach($isp as $key => $value){

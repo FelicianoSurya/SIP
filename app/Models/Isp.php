@@ -10,7 +10,6 @@ class Isp extends Model
     use HasFactory;
     protected $table = 'isp';
     protected $fillable =  [
-        'name',
-        'phoneNumber'
+        'name'
     ];
 }
