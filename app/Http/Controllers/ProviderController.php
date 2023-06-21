@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Validator;
 
 class ProviderController extends Controller
 {
+
+    public function index(){
+        return view('provider');
+    }
+    
     public function postProviderPlace(Request $request){
         $validate = Validator::make($request->all(),[
             'placeId' => 'required',
@@ -45,26 +50,24 @@ class ProviderController extends Controller
     public function editProvider(Request $request){
         $id = $request->id;
         $provider = PlaceIsp::find($id);
-
         $validate = Validator::make($request->all(),[
-            'name' => 'required',
-            'address' => 'required',
+            'ispId' => 'required',
             'phoneNumber' => 'required',
-            'typeId' => 'required'
+            'pic_name' => 'required'
         ]);
 
         if($validate->fails()){
-            return back();
+            return "validate error";
         }
-
-        $place->fill([
-            'name' => $request->name,
-            'address' => $request->address,
+        
+        $provider->fill([
+            'placeId' => $request->placeId,
+            'ispId' => $request->ispId,
             'phoneNumber' => $request->phoneNumber,
-            'typeId' => $request->typeId
+            'pic_name' => $request->pic_name
         ]);
-
-        $place->save();
-        return back();
+        
+        $provider->save();
+        return response()->json($provider);
     }
 }

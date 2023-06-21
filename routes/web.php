@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\ProviderController;
+use App\Http\Controllers\TypeController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +38,10 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::post('/place', [HomeController::class, 'postPlace'])->name('postPlace');
     Route::post('/isp', [ProviderController::class, 'postProviderPlace'])->name('postProvider');
-    Route::post('/place/{placeId}/editProvider', [ProviderController::class, 'editProvider']);
+    Route::post('/place/editProvider', [ProviderController::class, 'editProvider'])->name('editProvider');
     Route::get('/provider/delete/{idProdvider}', [ProviderController::class, 'deleteProvider']);
 });
+
+Route::get("/user", [UserController::class,'index']);
+Route::get("/type", [TypeController::class, 'index']);
+Route::get("/provider", [ProviderController::class,'index']);
