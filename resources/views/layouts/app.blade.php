@@ -7,7 +7,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'SIP') }}</title>
+    <title>SIP</title>
+    <link rel="icon" href="{{asset('images/SIP_Logo.png')}}" type="image/x-icon"/>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>

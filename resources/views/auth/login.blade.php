@@ -8,6 +8,9 @@
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
+                    <div class="text-center">
+                        <img src="{{asset('images/SIP_Logo.png')}}" alt=”logo_SIP” title=”logo_SIP” width=50% class=text-center>
+                    </div>
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
