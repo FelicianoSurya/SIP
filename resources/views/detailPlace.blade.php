@@ -147,7 +147,7 @@
                 <!-- Modal -->
                 <div class="modal fade" id="{{'modalEditProvider-' . $dat->id}}" tabindex="-1" role="dialog" aria-labelleby="modalEditProvider" aria-hidden="true">
                     <div class="modal-dialog" role="document">
-                        <form method="POST" action="{{ route('editProvider') }}" class="w-100">
+                        <form class="w-100">
                             @csrf
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -199,17 +199,16 @@
 @section('custom-js')
    <script>
         function editProvider(id){
-            var _token = $('meta[name=csrf-token]').attr('content');
             var _placeId = document.getElementById("placeId").value;
             var _ispId = document.getElementById("ispId-" + id).value;
             var _phoneNumber = document.getElementById("phoneNumber-" + id).value;
             var _picName = document.getElementById("picName-" + id).value;
-            console.log(_token + _placeId + _ispId + _phoneNumber + _picName);
+            console.log(_placeId + _ispId + _phoneNumber + _picName);
             $.ajax({
                 type: "POST",
                 url: "http://localhost:8000/place/editProvider",
                 data: {
-                    _token: _token,
+                    _token: '{{ csrf_token() }}',
                     id: id,
                     placeId: _placeId,
                     ispId: _ispId,
