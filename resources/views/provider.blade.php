@@ -5,7 +5,7 @@
 
 @section('content')
 <div class="container">
-<h1>Providers List</h1>
+<h1>ISP List</h1>
 <table class="table">
     <thead>
         <tr>
@@ -21,7 +21,7 @@
             <th scope="row">{{ $x }}</th>
                 <td>{{$dat->name}}</td>
                 <td class="align-middle">
-            <button class="btn btn-primary btn-md" type="button" data-bs-toggle="modal" data-bs-target="{{'#modalEditProvider-' . $dat->id}}">Edit Provider</button>
+            <button class="btn btn-primary btn-md" type="button" data-bs-toggle="modal" data-bs-target="{{'#modalEditProvider-' . $dat->id}}">Edit ISP</button>
                     <a href="{{ '/isp/delete' . '/' . $dat->id }}" class="btn btn-danger btn-md">Delete</a>
                 </td>
         </tr>

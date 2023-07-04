@@ -27,7 +27,7 @@ Auth::routes([
 ]);
 
 Route::group(['middleware' => 'auth'], function(){
-    Route::get('/', [HomeController::class, 'index']);
+    Route::get('/', [HomeController::class, 'index'])->name('Place');
     Route::get('/place/{placeId}',[HomeController::class, 'detailPlace']);
     Route::get('/place/{placeId}/clearProvider', [HomeController::class, 'clearProvider']);
     Route::get('/place/{placeId}/deletePlace', [HomeController::class, 'deletePlace']);
@@ -43,9 +43,9 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/isp/delete/{idIsp}', [ProviderController::class, 'deleteIsp']);
         Route::get('/user/delete/{idUser}', [UserController::class, 'deleteUser']);
         
-        Route::get("/user", [UserController::class,'index']);
-        Route::get("/type", [TypeController::class, 'index']);
-        Route::get("/provider", [ProviderController::class,'index']);
+        Route::get("/user", [UserController::class,'index'])->name('User');
+        Route::get("/type", [TypeController::class, 'index'])->name('Type');
+        Route::get("/provider", [ProviderController::class,'index'])->name('Isp');
     });
 });
 

@@ -21,7 +21,7 @@
             <th scope="row">{{ $x }}</th>
                 <td>{{$dat->name}}</td>
                 <td class="align-middle">
-            <button class="btn btn-primary btn-md" type="button" data-bs-toggle="modal" data-bs-target="{{'#modalEditProvider-' . $dat->id}}">Edit Provider</button>
+            <button class="btn btn-primary btn-md" type="button" data-bs-toggle="modal" data-bs-target="{{'#modalEditProvider-' . $dat->id}}">Edit Type</button>
                     <a href="{{ '/type/delete' . '/' . $dat->id }}" class="btn btn-danger btn-md">Delete</a>
                 </td>
         </tr>
