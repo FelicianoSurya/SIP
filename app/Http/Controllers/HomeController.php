@@ -44,7 +44,15 @@ class HomeController extends Controller
 
     public function addPlace()
     {
-        return view('formPlace');
+        $params = Place::with(['type','isp','isp.isp'])->orderBy("created_at","DESC")->paginate(10);
+        $userId = Auth::user()->id;
+        $userName = Employee::where('id',$userId)->first();
+        $dataType = Type::all();
+        return view('formPlace',[
+            'data' => $params,
+            'userName' => $userName,
+            'dataType' => $dataType 
+        ]);
     }
 
     public function detailPlace($placeId){
@@ -53,6 +61,7 @@ class HomeController extends Controller
         $row = $data->count();
         $ispData = Isp::all();
         $dataType = Type::all();
+        
 
         return view('detailPlace',[
             'data' => $params,

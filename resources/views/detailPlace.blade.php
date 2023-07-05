@@ -21,19 +21,19 @@
                 </div>
                 <div class="modal-body flex-column justify-content-center align-items-center">
                     @csrf
-                    <div classs="form-group d-flex flex-column">
+                    <div class="form-group d-flex flex-column">
                         <label for="placeName">{{ __('Place Name') }}</label>
                         <input type="text" class="form-control mb-3" name="name" value="{{ $data->name }}">
                     </div>
-                    <div classs="form-group d-flex flex-column">
+                    <div class="form-group d-flex flex-column">
                         <label for="address">{{ __('Place Address') }}</label>
                         <input type="text" class="form-control  mb-3" name="address" value="{{ $data->address }}">
                     </div>
-                    <div classs="form-group d-flex flex-column">
+                    <div class="form-group d-flex flex-column">
                         <label for="phoneNumber">{{ __('Place PIC Phone Number') }}</label>
                         <input type="text" class="form-control  mb-3" name="phoneNumber" value="{{ $data->phoneNumber }}">
                     </div>
-                    <div classs="form-group d-flex flex-column">
+                    <div class="form-group d-flex flex-column">
                         <label for="typePlace">{{ __('Place Type') }}</label>
                         <select name="typeId" class="form-control mb-3" id="typeId" name="typeId">
                             <option value=""></option>
@@ -95,7 +95,7 @@
                     <div class="modal-body flex-column justify-content-center align-items-center">
                         @csrf
                         <input type="hidden" name="placeId" value="{{ $placeId }}">
-                        <div classs="form-group d-flex flex-column">
+                        <div class="form-group d-flex flex-column">
                             <label for="providerName">{{ __('Provider') }}</label>
                             <select name="ispId" class="form-control mb-3">
                                 <option value=""></option>
@@ -104,11 +104,11 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div classs="form-group d-flex flex-column">
+                        <div class="form-group d-flex flex-column">
                             <label for="phoneNumber">{{ __('PIC Phone Number') }}</label>
                             <input type="text" class="form-control  mb-3" name="phoneNumber">
                         </div>
-                        <div classs="form-group d-flex flex-column">
+                        <div class="form-group d-flex flex-column">
                             <label for="pic_name">{{ __('PIC Name') }}</label>
                             <input type="text" class="form-control  mb-3" name="pic_name">
                         </div>
@@ -158,7 +158,7 @@
                                 </div>
                                 <div class="modal-body flex-column justify-content-center align-items-center">
                                     <input type="hidden" name="placeId" value="{{ $placeId }}" id="placeId">
-                                    <div classs="form-group d-flex flex-column">
+                                    <div class="form-group d-flex flex-column">
                                         <label for="providerName">{{ __('Provider') }}</label>
                                         <select name="ispId" class="form-control mb-3" id="{{ 'ispId-' . $dat->id }}">
                                             <option value=""></option>
@@ -171,11 +171,11 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div classs="form-group d-flex flex-column">
+                                    <div class="form-group d-flex flex-column">
                                         <label for="phoneNumber">{{ __('PIC Phone Number') }}</label>
                                         <input type="text" class="form-control  mb-3" name="phoneNumber" value="{{$dat->phoneNumber}}" id="{{ 'phoneNumber-' . $dat->id }}">
                                     </div>
-                                    <div classs="form-group d-flex flex-column">
+                                    <div class="form-group d-flex flex-column">
                                         <label for="pic_name">{{ __('PIC Name') }}</label>
                                         <input type="text" class="form-control  mb-3" name="pic_name" value="{{$dat->pic_name}}" id="{{ 'picName-' . $dat->id }}">
                                     </div>

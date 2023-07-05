@@ -8,7 +8,7 @@
     <div class="row justify-content-center">
         <div class="col-12">
             <div class="d-flex r-100 justify-content-end align-items-center">
-                <button class="btn btn-danger btn-md mb-3" type="button" data-bs-toggle="modal" data-bs-target="#modalAdd">Add Place</button>
+                <a href="{{ url('addplace') }}"><button class="btn btn-danger btn-md mb-3" type="button">Add Place</button></a>
                         <!-- Modal -->
                         <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelleby="modalAdd" aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -23,19 +23,19 @@
                             <div class="modal-body flex-column justify-content-center align-items-center">
                                 @csrf
                                 <input type="hidden" name="userId" value="{{ Auth()->user()->id }}" name="userId">
-                                <div classs="form-group d-flex flex-column">
+                                <div class="form-group d-flex flex-column">
                                     <label for="placeName">{{ __('Place Name') }}</label>
                                     <input type="text" class="form-control mb-3" name="name">
                                 </div>
-                                <div classs="form-group d-flex flex-column">
+                                <div class="form-group d-flex flex-column">
                                     <label for="address">{{ __('Place Address') }}</label>
                                     <input type="text" class="form-control  mb-3" name="address">
                                 </div>
-                                <div classs="form-group d-flex flex-column">
+                                <div class="form-group d-flex flex-column">
                                     <label for="phoneNumber">{{ __('Place PIC Phone Number') }}</label>
                                     <input type="text" class="form-control  mb-3" name="phoneNumber">
                                 </div>
-                                <div classs="form-group d-flex flex-column">
+                                <div class="form-group d-flex flex-column">
                                     <label for="typePlace">{{ __('Place Type') }}</label>
                                     <select name="typeId" class="form-control mb-3" id="typeId" name="typeId">
                                         <option value=""></option>
