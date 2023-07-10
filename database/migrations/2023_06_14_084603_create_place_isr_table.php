@@ -30,6 +30,6 @@ class CreatePlaceIsrTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('place_isr');
+        Schema::dropIfExists('place_isp');
     }
 }

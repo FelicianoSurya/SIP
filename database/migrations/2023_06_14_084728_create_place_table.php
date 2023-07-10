@@ -18,6 +18,8 @@ class CreatePlaceTable extends Migration
             $table->string("name");
             $table->string("address");
             $table->string("phoneNumber");
+            $table->double("longitude")->nullable();
+            $table->double("langitude")->nullable();
             $table->string("createdBy");
             $table->integer("typeId");
             $table->timestamps();

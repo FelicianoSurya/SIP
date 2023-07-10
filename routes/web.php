@@ -28,13 +28,14 @@ Auth::routes([
 
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/', [HomeController::class, 'index'])->name('Place');
+    Route::get('/map', [HomeController::class, 'map']);
     Route::get('/place/{placeId}',[HomeController::class, 'detailPlace']);
     Route::get('/place/{placeId}/clearProvider', [HomeController::class, 'clearProvider']);
     Route::get('/place/{placeId}/deletePlace', [HomeController::class, 'deletePlace']);
     Route::get('/placeForm', [PlaceController::class, 'index'])->name("placeForm");
     Route::post('/place/{placeId}/editPlace', [HomeController::class, 'editPlace'])->name('editPlace');
     Route::post('/place', [HomeController::class, 'postPlace'])->name('postPlace');
-    Route::get('/addplace', [HomeController::class, 'addPlace'])->name('addPlace');
+    Route::get('/addPlace', [HomeController::class, 'addPlace'])->name('addPlace');
     Route::post('/isp', [ProviderController::class, 'postProviderPlace'])->name('postProvider');
     Route::post('/place/editProvider', [ProviderController::class, 'editProvider'])->name('editProvider');
     Route::get('/provider/delete/{idProdvider}', [ProviderController::class, 'deleteProvider']);

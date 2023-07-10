@@ -24,6 +24,20 @@ class HomeController extends Controller
         // $this->middleware('auth');
     }
 
+    public function map(){
+        $initialMarkers = [
+            [
+                'position' => [
+                    'lat' => 28.625485,
+                    'lng' => 79.821091
+                ],
+                'label' => [ 'color' => 'white', 'text' => 'P1' ],
+                'draggable' => true
+            ],
+        ];
+        return view('map', compact('initialMarkers'));
+    }
+
     /**
      * Show the application dashboard.
      *
@@ -79,6 +93,8 @@ class HomeController extends Controller
             'address' => 'required',
             'phoneNumber' => 'required',
             'typeId' => 'required',
+            'latitude' => 'required',
+            'longitude' => 'required'
         ]);
 
         if($validate->fails()){
@@ -91,7 +107,9 @@ class HomeController extends Controller
             'address' => $request->address,
             'phoneNumber' => $request->phoneNumber,
             'typeId' => $request->typeId,
-            'createdBy' => $request->userId
+            'createdBy' => $request->userId,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude
         ]);
 
         return back();

@@ -14,6 +14,8 @@ class Place extends Model
         'name',
         'address',
         'phoneNumber',
+        'latitude',
+        'longitude',
         'createdBy',
         'typeId'
     ];
