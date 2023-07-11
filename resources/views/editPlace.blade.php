@@ -36,7 +36,7 @@
         </div>
         <div class="form-group d-flex flex-column">
             <label for="addressBox">{{ __('Place SearchBox') }}</label>            
-            <input type="text" name="autocomplete" id="autocomplete" class="form-control" placeholder="Enter Location" value="{{ $data->jalan}}">
+            <input type="text" name="autocomplete" id="autocomplete" class="form-control" placeholder="Enter Location">
         </div>  
         <div class="form-group d-flex flex-column" id="latitudeArea">
             <input type="hidden" id="latitude" name="latitude" class="form-control" value="{{ $data->latitude }}">
