@@ -16,7 +16,7 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         @auth
-                        @if ((Route::has('login')))
+                        @if (!(Route::has('login')))
                             <a class="navbar-brand" href="{{ route('Place') }}">Place</a>
                             @if(auth()->user()->role=='admin')
                             <a class="navbar-brand" href="{{ route('User') }}">User</a>
