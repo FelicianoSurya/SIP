@@ -19,7 +19,11 @@ class CreatePlaceTable extends Migration
             $table->string("address");
             $table->string("phoneNumber");
             $table->double("longitude")->nullable();
-            $table->double("langitude")->nullable();
+            $table->double("latitude")->nullable();
+            $table->string("route")->nullable();
+            $table->string("kecamatan")->nullable();
+            $table->string("city")->nullable();
+            $table->string("provinsi")->nullable();
             $table->string("createdBy");
             $table->integer("typeId");
             $table->timestamps();

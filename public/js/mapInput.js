@@ -1,79 +1,131 @@
-function initialize() {
-    $('form').on('keyup keypress', function (e) {
-        var keyCode = e.keyCode || e.which;
-        if (keyCode === 13) {
-            e.preventDefault();
-            return false;
+let map, activeInfoWindow, markers, searchBox = [];
+let key = "AIzaSyBIxKrh1xIRVyGMc7bJe85JrSuhSDZY7yc";
+/* ----------------------------- Initialize Map ----------------------------- */
+window.onload = function () {
+    navigator.geolocation.getCurrentPosition(clientPosition);
+    geocoder = new google.maps.Geocoder();
+    function clientPosition(position) {
+        var latitude, longitude;
+        map = new google.maps.Map(document.getElementById("map"), {
+            center: {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+            },
+            zoom: 15,
+        });
+        const currentLocation = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
         }
-    });
-    const locationInputs = document.getElementsByClassName("map-input");
-    const autocompletes = [];
-    const geocoder = new google.maps.Geocoder;
-    console.log(locationInputs.length)
-    for (let i = 0; i < locationInputs.length; i++) {
-
-        const input = locationInputs[i];
-        const fieldKey = input.id.replace("-input", "");
-        const isEdit = document.getElementById(fieldKey + "-latitude").value != '' && document.getElementById(fieldKey + "-longitude").value != '';
-
-        const latitude = parseFloat(document.getElementById(fieldKey + "-latitude").value) || -33.8688;
-        const longitude = parseFloat(document.getElementById(fieldKey + "-longitude").value) || 151.2195;
-        const map = new google.maps.Map(document.getElementById(fieldKey + '-map'), {
-            center: { lat: latitude, lng: longitude },
-            zoom: 13
-        });
-        const marker = new google.maps.Marker({
+        markers = new google.maps.Marker({
+            position: {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            },
             map: map,
-            position: { lat: latitude, lng: longitude },
-        });
+            draggable: true,
+        })
+        var lat = markers.getPosition().lat();
+        var lng = markers.getPosition().lng();
+        $('#latitude').val(lat);
+        $('#longitude').val(lng);
+        $.ajax({
+            url: "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lng + "&sensor=true&key=" + key, success: function (data) {
 
-        marker.setVisible(isEdit);
-
-        const autocomplete = new google.maps.places.Autocomplete(input);
-        autocomplete.key = fieldKey;
-        autocompletes.push({ input: input, map: map, marker: marker, autocomplete: autocomplete });
-    }
-
-    for (let i = 0; i < autocompletes.length; i++) {
-        const input = autocompletes[i].input;
-        const autocomplete = autocompletes[i].autocomplete;
-        const map = autocompletes[i].map;
-        const marker = autocompletes[i].marker;
-
-        google.maps.event.addListener(autocomplete, 'place_changed', function () {
-            marker.setVisible(false);
-            const place = autocomplete.getPlace();
-
-            geocoder.geocode({ 'placeId': place.place_id }, function (results, status) {
-                if (status === google.maps.GeocoderStatus.OK) {
-                    const lat = results[0].geometry.location.lat();
-                    const lng = results[0].geometry.location.lng();
-                    setLocationCoordinates(autocomplete.key, lat, lng);
+                arrayList = data.results[0].address_components;
+                console.log(data.results[0].address_components)
+                for (var x = 0; x < arrayList.length; x++) {
+                    if (arrayList[x].types[0] == 'route') {
+                        $("#route").val(arrayList[x].long_name);
+                    }
+                    if (arrayList[x].types[0] == 'administrative_area_level_3') {
+                        $('#kecamatan').val(arrayList[x].long_name);
+                    }
+                    if (arrayList[x].types[0] == 'administrative_area_level_2') {
+                        $("#city").val(arrayList[x].long_name);
+                    }
+                    if (arrayList[x].types[0] == 'administrative_area_level_1') {
+                        $("#provinsi").val(arrayList[x].long_name)
+                    }
                 }
-            });
-
-            if (!place.geometry) {
-                window.alert("No details available for input: '" + place.name + "'");
-                input.value = "";
-                return;
             }
-
-            if (place.geometry.viewport) {
-                map.fitBounds(place.geometry.viewport);
-            } else {
-                map.setCenter(place.geometry.location);
-                map.setZoom(17);
-            }
-            marker.setPosition(place.geometry.location);
-            marker.setVisible(true);
-
-        });
+        })
+        google.maps.event.addListener(markers, 'position_changed', function () {
+            // geocoder.geocode({
+            //     'latLng': currentLocation,
+            // }, function(result,status){
+            //     alert(result[1].formatted_address)
+            // })
+            var lat = markers.getPosition().lat();
+            var lng = markers.getPosition().lng();
+            $('#latitude').val(lat);
+            $('#longitude').val(lng);
+            $.ajax({
+                url: "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lng + "&sensor=true&key=" + key, success: function (data) {
+                    arrayList = data.results[0].address_components;
+                    for (var x = 0; x < arrayList.length; x++) {
+                        if (arrayList[x].types[0] == 'route') {
+                            $("#route").val(arrayList[x].long_name);
+                        }
+                        if (arrayList[x].types[0] == 'administrative_area_level_3') {
+                            $('#kecamatan').val(arrayList[x].long_name);
+                        }
+                        if (arrayList[x].types[0] == 'administrative_area_level_2') {
+                            $("#city").val(arrayList[x].long_name);
+                        }
+                        if (arrayList[x].types[0] == 'administrative_area_level_1') {
+                            $("#provinsi").val(arrayList[x].long_name)
+                        }
+                    }
+                }
+            })
+        })
     }
-}
+    var input = document.getElementById('autocomplete');
+    var autocomplete = new google.maps.places.SearchBox(input);
 
-function setLocationCoordinates(key, lat, lng) {
-    const latitudeField = document.getElementById(key + "-" + "latitude");
-    const longitudeField = document.getElementById(key + "-" + "longitude");
-    latitudeField.value = lat;
-    longitudeField.value = lng;
+    google.maps.event.addListener(autocomplete, 'places_changed', function () {
+        var places = autocomplete.getPlaces();
+        var bounds = new google.maps.LatLngBounds();
+        var i, place;
+        for (i = 0; place = places[i]; i++) {
+            bounds.extend(place.geometry.location);
+            markers.setPosition(place.geometry.location);
+        }
+
+        var lat = markers.getPosition().lat();
+        var lng = markers.getPosition().lng();
+
+        $('#latitude').val(lat);
+        $('#longitude').val(lng);
+
+        map.fitBounds(bounds);
+        map.setZoom(15);
+
+        google.maps.event.addListener(markers, 'position_changed', function () {
+            var lat = markers.getPosition().lat();
+            var lng = markers.getPosition().lng();
+            $('#latitude').val(lat);
+            $('#longitude').val(lng);
+            $.ajax({
+                url: "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lng + "&sensor=true&key=" + key, success: function (data) {
+                    arrayList = data.results[0].address_components;
+                    for (var x = 0; x < arrayList.length; x++) {
+                        if (arrayList[x].types[0] == 'route') {
+                            $("#route").val(arrayList[x].long_name);
+                        }
+                        if (arrayList[x].types[0] == 'administrative_area_level_3') {
+                            $('#kecamatan').val(arrayList[x].long_name);
+                        }
+                        if (arrayList[x].types[0] == 'administrative_area_level_2') {
+                            $("#city").val(arrayList[x].long_name);
+                        }
+                        if (arrayList[x].types[0] == 'administrative_area_level_1') {
+                            $("#provinsi").val(arrayList[x].long_name)
+                        }
+                    }
+                }
+            })
+        })
+    });
 }

@@ -22,12 +22,12 @@
 
 @section('custom-js')
 @parent
-    <script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places&callback=initMap" async defer></script>
     <script>
         let map, activeInfoWindow, markers, searchBox = [];
 /* ----------------------------- Initialize Map ----------------------------- */
         function initMap() {
             navigator.geolocation.getCurrentPosition(clientPosition);
+            geocoder = new google.maps.Geocoder();
             function clientPosition(position){
                 var latitude,longitude;
                 map = new google.maps.Map(document.getElementById("map"), {
@@ -49,7 +49,42 @@
                     map: map,
                     draggable: true,
                 })
+                var lat = markers.getPosition().lat();
+                var lng = markers.getPosition().lng();
+                $('#latitude').val(lat);
+                $('#longitude').val(lng);
+                $.ajax({url: "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lng + "&sensor=true&key={{ env('GOOGLE_MAPS_API_KEY') }}", success: function(data){
+                        arrayList = data.results[0].address_components;
+                        console.log(data.results[0].address_components)
+                        for(var x = 0 ; x < arrayList.length; x++){
+                            if(arrayList[x].types[0] == 'route'){
+                                console.log(arrayList[x].long_name)
+                            }
+                        }
+                    }
+                })
+                google.maps.event.addListener(markers, 'position_changed', function(){
+                    // geocoder.geocode({
+                    //     'latLng': currentLocation,
+                    // }, function(result,status){
+                    //     alert(result[1].formatted_address)
+                    // })
+                    var lat = markers.getPosition().lat();
+                    var lng = markers.getPosition().lng();
+                    $('#latitude').val(lat);
+                    $('#longitude').val(lng);
+                    $.ajax({url: "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lng + "&sensor=true&key={{ env('GOOGLE_MAPS_API_KEY') }}", success: function(data){
+                        arrayList = data.results[0].address_components;
+                        for(var x = 0 ; x < arrayList.length; x++){
+                            if(arrayList[x].types[0] == 'route'){
+                                console.log(arrayList[x].long_name)
+                            }
+                        }
+                    }
+                })
+                })
             }
+
             var input = document.getElementById('autocomplete');
             var autocomplete = new google.maps.places.SearchBox(input);
 
@@ -72,16 +107,27 @@
                 map.setZoom(15);
                 
                 google.maps.event.addListener(markers, 'position_changed', function(){
+                    // geocoder.geocode({
+                    //     'latLng': currentLocation,
+                    // }, function(result,status){
+                    //     alert(result[1].formatted_address)
+                    // })
                     var lat = markers.getPosition().lat();
                     var lng = markers.getPosition().lng();
-
                     $('#latitude').val(lat);
                     $('#longitude').val(lng);
-            })
-        });
-
-
-            
+                    $.ajax({url: "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lng + "&sensor=true&key={{ env('GOOGLE_MAPS_API_KEY') }}", success: function(data){
+                        arrayList = data.results[0].address_components;
+                        for(var x = 0 ; x < arrayList.length; x++){
+                            if(arrayList[x].types[0] == 'route'){
+                                console.log(arrayList[x].long_name)
+                            }
+                        }
+                    }
+                })
+                })
+            });
         }
     </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places&callback=initMap" async defer></script>
 @endsection

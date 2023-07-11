@@ -16,6 +16,10 @@ class Place extends Model
         'phoneNumber',
         'latitude',
         'longitude',
+        'route',
+        'kecamatan',
+        'provinsi',
+        'city',
         'createdBy',
         'typeId'
     ];

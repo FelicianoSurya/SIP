@@ -6,6 +6,7 @@ use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FilterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +29,8 @@ Auth::routes([
 
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/', [HomeController::class, 'index'])->name('Place');
-    Route::get('/map', [HomeController::class, 'map']);
+    // Route::get('/map', [HomeController::class, 'map']);
+    Route::get("/findPlace", [FilterController::class, 'index']);
     Route::get('/place/{placeId}',[HomeController::class, 'detailPlace']);
     Route::get('/place/{placeId}/clearProvider', [HomeController::class, 'clearProvider']);
     Route::get('/place/{placeId}/deletePlace', [HomeController::class, 'deletePlace']);

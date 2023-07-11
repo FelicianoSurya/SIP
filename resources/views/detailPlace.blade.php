@@ -67,16 +67,32 @@
             <td>{{$data->name}}</td>
         </tr>
         <tr>
-            <th>Address</th>
-            <td>{{$data->address}}</td>
-        </tr>
-        <tr>
             <th>PIC Place Phone Number</th>
             <td>{{$data->phoneNumber}}</td>
         </tr>
         <tr>
+            <th>Provinsi</th>
+            <td>{{$data->provinsi}}</td>
+        </tr>
+        <tr>
+            <th>Kota</th>
+            <td>{{$data->city}}</td>
+        </tr>
+        <tr>
+            <th>Kecamatan</th>
+            <td>{{$data->kecamatan}}</td>
+        </tr>
+        <tr>
+            <th>Jalan</th>
+            <td>{{$data->route}}</td>
+        </tr>
+        <tr>
             <th>Place Type</th>
             <td>{{$data->type->name}}</td>
+        </tr>
+        <tr>
+            <th>Address</th>
+            <td>{{$data->address}}</td>
         </tr>
     </tbody>
 </table>

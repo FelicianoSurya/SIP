@@ -109,10 +109,14 @@ class HomeController extends Controller
             'typeId' => $request->typeId,
             'createdBy' => $request->userId,
             'latitude' => $request->latitude,
-            'longitude' => $request->longitude
+            'longitude' => $request->longitude,
+            'route' => $request->route,
+            'kecamatan' => $request->kecamatan,
+            'provinsi' => $request->provinsi,
+            'city' => $request->city,
         ]);
 
-        return back();
+        return redirect('/');
     }
 
     public function postProvider(Request $request){

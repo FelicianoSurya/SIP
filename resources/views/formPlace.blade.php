@@ -28,7 +28,7 @@
                 </select>
             </div>
             <div class="form-group d-flex flex-column">
-                <label for="address">{{ __('Place Address') }}</label>
+                <label for="address">{{ __('Place Address (Detail)' ) }}</label>
                 <input type="text" class="form-control  mb-3" name="address">
             </div>
             <div class="form-group d-flex flex-column">
@@ -40,6 +40,18 @@
             </div>  
             <div class="form-group d-flex flex-column" id="longtitudeArea">
                 <input type="hidden" name="longitude" id="longitude" class="form-control">
+            </div>
+            <div class="form-group d-flex flex-column" id="routeArea">
+                <input type="hidden" name="route" id="route" class="form-control">
+            </div>
+            <div class="form-group d-flex flex-column" id="kecamatanArea">
+                <input type="hidden" name="kecamatan" id="kecamatan" class="form-control">
+            </div>
+            <div class="form-group d-flex flex-column" id="provinsiArea">
+                <input type="hidden" name="provinsi" id="provinsi" class="form-control">
+            </div>
+            <div class="form-group d-flex flex-column" id="cityArea">
+                <input type="hidden" name="city" id="city" class="form-control">
             </div>
             <div id="map" style="width:100%;height: 400px"></div>
             <div class="flex    ">
@@ -53,64 +65,6 @@
 
 @section('custom-js')
 @parent
-    <script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places&callback=initialize" async defer></script>
-    <script type="text/javascript">
-        let map, activeInfoWindow, markers, searchBox = [];
-        /* ----------------------------- Initialize Map ----------------------------- */
-        function initialize() {
-            alert("test")
-            navigator.geolocation.getCurrentPosition(clientPosition);
-            function clientPosition(position){
-                var latitude,longitude;
-                map = new google.maps.Map(document.getElementById("map"), {
-                    center: {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude,
-                    },
-                    zoom: 15,
-                });
-                const currentLocation = {
-                    lat : position.coords.latitude,
-                    lng : position.coords.longitude
-                }
-                markers = new google.maps.Marker({
-                    position: {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude
-                    },
-                    map: map,
-                    draggable: true,
-                })
-            }
-            var input = document.getElementById('autocomplete');
-            var autocomplete = new google.maps.places.SearchBox(input);
-
-            google.maps.event.addListener(autocomplete, 'places_changed', function(){
-                var places = autocomplete.getPlaces();
-                var bounds = new google.maps.LatLngBounds();
-                var i, place;
-                for(i = 0 ; place=places[i]; i++){
-                    bounds.extend(place.geometry.location);
-                    markers.setPosition(place.geometry.location);
-                }
-
-                var lat = markers.getPosition().lat();
-                var lng = markers.getPosition().lng();
-                
-                $('#latitude').val(lat);
-                $('#longitude').val(lng);
-
-                map.fitBounds(bounds);
-                map.setZoom(15);
-                
-                google.maps.event.addListener(markers, 'position_changed', function(){
-                    var lat = markers.getPosition().lat();
-                    var lng = markers.getPosition().lng();
-
-                    $('#latitude').val(lat);
-                    $('#longitude').val(lng);
-            })
-        });            
-        }
-    </script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places"></script>
+<script type="text/javascript" src="{{ asset('js/mapInput.js') }}"></script>
 @endsection
