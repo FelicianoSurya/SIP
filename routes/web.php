@@ -31,6 +31,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/', [HomeController::class, 'index'])->name('Place');
     // Route::get('/map', [HomeController::class, 'map']);
     Route::get("/findPlace", [FilterController::class, 'index']);
+    Route::get("/findPlace/search/{placeId}", [FilterController::class, 'findPlace']);
+    Route::get("/findPlace/searchRoute/{route}", [FilterController::class, 'findPlaceRoute']);
+
     Route::get('/place/{placeId}',[HomeController::class, 'detailPlace']);
     Route::get('/place/{placeId}/clearProvider', [HomeController::class, 'clearProvider']);
     Route::get('/place/{placeId}/deletePlace', [HomeController::class, 'deletePlace']);

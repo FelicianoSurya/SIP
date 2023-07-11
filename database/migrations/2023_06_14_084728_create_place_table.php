@@ -18,8 +18,8 @@ class CreatePlaceTable extends Migration
             $table->string("name");
             $table->string("address");
             $table->string("phoneNumber");
-            $table->double("longitude")->nullable();
-            $table->double("latitude")->nullable();
+            $table->double("longitude")->default(0);
+            $table->double("latitude")->default(0);
             $table->string("route")->nullable();
             $table->string("kecamatan")->nullable();
             $table->string("city")->nullable();

@@ -16,12 +16,12 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         @auth
-                        @if (!(Route::has('login')))
+                        @if ((Route::has('login')))
                             <a class="navbar-brand" href="{{ route('Place') }}">Place</a>
                             @if(auth()->user()->role=='admin')
-                            <a class="navbar-brand" href="{{ route('User') }}">User</a>
-                            <a class="navbar-brand" href="{{ route('Isp') }}">ISP</a>
-                            <a class="navbar-brand" href="{{ route('Type') }}">Type</a>
+                            <a class="navbar-brand" href="{{ route('user') }}">User</a>
+                            <a class="navbar-brand" href="{{ route('isp') }}">ISP</a>
+                            <a class="navbar-brand" href="{{ route('type') }}">Type</a>
                             @endif
                         @endif
                         @endauth
