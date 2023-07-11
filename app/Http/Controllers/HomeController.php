@@ -167,6 +167,14 @@ class HomeController extends Controller
         return back();
     }
 
+    public function edit($id){
+        $params = Place::find($id);
+        $dataType = Type::all();
+        return view('editPlace',[
+            'data' => $params,
+            'dataType' => $dataType 
+        ]);
+    }
     public function deletePlace($idPlace){
         $params = Place::find($idPlace);
 

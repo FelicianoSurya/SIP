@@ -36,6 +36,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/place/{placeId}/editPlace', [HomeController::class, 'editPlace'])->name('editPlace');
     Route::post('/place', [HomeController::class, 'postPlace'])->name('postPlace');
     Route::get('/addPlace', [HomeController::class, 'addPlace'])->name('addPlace');
+    Route::get('/place/{placeId}/edit', [HomeController::class, 'edit'])->name('edit');
     Route::post('/isp', [ProviderController::class, 'postProviderPlace'])->name('postProvider');
     Route::post('/place/editProvider', [ProviderController::class, 'editProvider'])->name('editProvider');
     Route::get('/provider/delete/{idProdvider}', [ProviderController::class, 'deleteProvider']);

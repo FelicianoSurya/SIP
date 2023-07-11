@@ -5,8 +5,8 @@
 @endsection
 @section('content')
 <div class="container">
-    <div class="d-flex flex-column w-100 justify-content-center align-items-center">
-        <h1 class="mb-5">Add Place</h1>
+    <div class="d-flex flex-column w-100 justify-content-center align-items-center">    
+    <h1 class="mb-5">Add Place</h1>
         <form method="POST" action="{{ route('postPlace') }}" class="w-50">
             @csrf
             <input type="hidden" name="userId" value="{{ Auth()->user()->id }}" name="userId">

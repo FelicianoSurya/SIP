@@ -6,7 +6,7 @@
 @section('content')
 <div class="container">
 <h1>Location Details</h1>
-<button class="btn btn-primary btn-md" type="button" data-bs-toggle="modal" data-bs-target="#modalEditPlace">Edit Place</button>
+<a href="{{ url('/place' . '/' . $data->id . '/edit') }}"><button class="btn btn-primary btn-md" type="button">Edit Place</button></a>    
 <!-- Modal -->
 <div class="modal fade" id="modalEditPlace" tabindex="-1" role="dialog" aria-labelleby="modalEditPlace" aria-hidden="true">
     <div class="modal-dialog" role="document">
