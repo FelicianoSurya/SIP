@@ -14,10 +14,10 @@ class ProviderController extends Controller
 
     public function index(){
         $params = Isp::all();
-        // return response()->json($params);
-        return view('provider',[
-            'data' => $params
-        ]);
+        return response()->json($params);
+        // return view('provider',[
+        //     'data' => $params
+        // ]);
     }
     
     public function postProviderPlace(Request $request){
