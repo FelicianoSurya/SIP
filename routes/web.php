@@ -48,15 +48,9 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/isp/delete/{idIsp}', [ProviderController::class, 'deleteIsp']);
         Route::get('/user/delete/{idUser}', [UserController::class, 'deleteUser']);
         
-<<<<<<< Updated upstream
         Route::get("/user", [UserController::class,'index'])->name('User');
         Route::get("/type", [TypeController::class, 'index'])->name('Type');
         Route::get("/provider", [ProviderController::class,'index'])->name('Isp');
-=======
-        Route::get("/user", [UserController::class,'index'])->name('user');
-        Route::get("/type", [TypeController::class, 'index'])->name('type');
-        Route::get("/provider", [ProviderController::class,'index'])->name('isp');
->>>>>>> Stashed changes
     });
 });
 
