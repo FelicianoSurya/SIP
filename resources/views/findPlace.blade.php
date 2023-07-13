@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('custom-css')
-<link href="{{ asset('css/home.css') }}" rel="stylesheet">
+<link href="{{ asset('css/findPlace.css') }}" rel="stylesheet">
 @endsection
 @section('content')
 <div class="container d-flex flex-column align-items-center w-100">
@@ -10,21 +10,51 @@
         <form class="w-100">
             <div class="form-group d-flex flex-column">
                 <label for="placeName">{{ __('Place Name') }}</label>
-                <select name="name" id="name" class="form-control mb-3">
-                    <option value=""></option>
-                    @foreach($data as $x)
-                    <option value="{{ $x->id }}">{{ $x->name }}</option>
-                    @endforeach
-                </select>
+                <div class="select-box">
+                    <div class="options-container" id="options-container">
+                        <div class="option" id="">
+                            <input type="radio" class="radio">
+                            <label for="">Nama Venue</label>
+                        </div>
+                        @foreach($data as $x)
+                        <div class="option" id="{{$x->id}}">
+                            <input type="radio" class="radio">
+                            <label for="{{ $x->id }}">{{ $x->name }}</label>
+                        </div>
+                        @endforeach
+                    </div>
+
+                    <div class="selected" id="">
+                        Nama Venue
+                    </div>
+                    <div class="search-box" id="search-box">
+                        <input type="text" placeholder="Venue Name" class="form-control">
+                    </div>
+                </div>
             </div>
             <div class="form-group d-flex flex-column">
-                <label for="address">{{ __('Jalan') }}</label>
-                <select name="route" id="route" class="form-control mb-3">
-                    <option value=""></option>
-                    @foreach($jalan as $a)
-                    <option value="{{ $a->route }}">{{ $a->route }}</option>
-                    @endforeach
-                </select>
+                <label for="placeName">{{ __('Jalan') }}</label>
+                <div class="select-box-route">
+                    <div class="options-container-route" id="options-container-route">
+                        <div class="option-route" id="">
+                            <input type="radio" class="radio">
+                            <label for="">Nama Jalan</label>
+                        </div>
+                        @foreach($jalan as $y)
+                        <div class="option-route" id="{{$y->route}}">
+                            <input type="radio" class="radio">
+                            <label for="{{ $y->route }}">{{ $y->route }}</label>
+                        </div>
+                        @endforeach
+                    </div>
+
+                    <div class="selected-route" id="">
+                        Nama Jalan
+                    </div>
+                    <div class="search-box-route" id="search-box-route">
+                        <input type="text" placeholder="Nama Jalan" class="form-control">
+                    </div>
+                </div>
             </div>
             <div class="form-group d-flex flex-column">
                 <label for="radius">{{ __('Radius') }}</label>
@@ -44,6 +74,7 @@
 @endsection
 
 @section('custom-js')
+<script src="{{ url('js/find.js') }}"></script>
 <script>
     function elementFromHtml(html){
         const template = document.createElement("template");
@@ -66,9 +97,21 @@
         return d;
     }
     function findPlace(){
-        var placeId = $("#name").val();
+        var idName = $(".selected")[0].id;
+        var routeName = $(".selected-route")[0].id;
+        var placeId = "";
+        var route = "";
+        if(idName != ""){
+            var split = idName.split("-");
+            placeId = split[1];
+        }
+
+        if(routeName != ""){
+            var split = routeName.split("-");
+            route = split[1];
+        }
+
         var radius = $("#radius").val();
-        var route = $("#route").val();
         var table = document.querySelector('#data');
         let html_template = `
         <tr>
