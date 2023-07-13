@@ -59,6 +59,9 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('/type/edit', [TypeController::class, 'edit']);
 
         Route::get("/provider", [ProviderController::class,'index'])->name('isp');
+        Route::post('/provider', [ProviderController::class, 'createIsp'])->name('createIsp');
+        Route::post('/provider/edit', [ProviderController::class, 'edit']);
+
     });
 });
 
