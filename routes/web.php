@@ -52,7 +52,12 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/user/delete/{idUser}', [UserController::class, 'deleteUser']);
         
         Route::get("/user", [UserController::class,'index'])->name('user');
+        Route::post("/user", [UserController::class,'postUser'])->name("postUser");
+
         Route::get("/type", [TypeController::class, 'index'])->name('type');
+        Route::post("/type", [TypeController::class, 'store'])->name("postType");
+        Route::post('/type/edit', [TypeController::class, 'edit']);
+
         Route::get("/provider", [ProviderController::class,'index'])->name('isp');
     });
 });

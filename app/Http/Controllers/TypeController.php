@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Type;
+use Illuminate\Support\Facades\Validator;
 
 class TypeController extends Controller
 {
@@ -39,7 +40,19 @@ class TypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = Validator::make($request->all(), [
+            'name' => 'required',
+        ]);
+
+        if($validate->fails()){
+            return back();
+        }
+
+        $params = Type::create([
+            'name' => $request->name,
+        ]);
+
+        return back();
     }
 
     /**
@@ -59,9 +72,24 @@ class TypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        //
+        $id = $request->id;
+        $type = Type::find($id);
+        $validate = Validator::make($request->all(),[
+            'name' => 'required'
+        ]);
+
+        if($validate->fails()){
+            return back();
+        }
+
+        $type->fill([
+            'name' => $request->name
+        ]);
+
+        $type->save();
+        return back();
     }
 
     /**

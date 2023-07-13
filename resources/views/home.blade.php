@@ -8,7 +8,7 @@
     <div class="row justify-content-center">
         <div class="col-12">
             <div class="d-flex r-100 justify-content-end align-items-center">
-                <a href="{{ url('addPlace') }}"><button class="btn btn-danger btn-md mb-3" type="button">Add Place</button></a>
+                <a href="{{ url('addPlace') }}"><button class="btn btn-info text-white btn-md mb-3" type="button">Add Place</button></a>
                 <a href="{{ url('findPlace') }}"><button class="btn btn-danger btn-md mb-3 ms-3" type="button">Find Provider</button></a>
             </div>
             <table class="table">

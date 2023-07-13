@@ -7,8 +7,9 @@
 <div class="container">
     <div class="d-flex flex-column w-100 justify-content-center align-items-center">
         <h1 class="mb-5">Edit Place</h1>
-        <form method="POST" action="{{ route('postPlace') }}" class="w-50">
+        <form method="POST" action="{{ url('/place' . '/' . $data->id . '/editPlace') }}" class="w-50">
         @csrf
+        <input type="hidden" name="id" value="{{ $data->id }}">
         <div class="form-group d-flex flex-column">
             <label for="placeName">{{ __('Place Name') }}</label>
             <input type="text" class="form-control mb-3" name="name" value="{{ $data->name }}">
@@ -58,10 +59,16 @@
         </div>
         <div id="map" style="width:100%;height: 400px"></div>
         <div class="flex    ">
-            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="submit" class="btn btn-primary">Update</button>
             <button type="button" class="btn btn-danger">Back</button>
             </div>
         </form>
     </div>
 </div>
+@endsection
+
+@section('custom-js')
+@parent
+<script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places"></script>
+<script type="text/javascript" src="{{ asset('js/mapInputEdit.js') }}"></script>
 @endsection

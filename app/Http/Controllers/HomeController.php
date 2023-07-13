@@ -94,7 +94,7 @@ class HomeController extends Controller
             'phoneNumber' => 'required',
             'typeId' => 'required',
             'latitude' => 'required',
-            'longitude' => 'required'
+            'longitude' => 'required',
         ]);
 
         if($validate->fails()){
@@ -153,7 +153,9 @@ class HomeController extends Controller
             'name' => 'required',
             'address' => 'required',
             'phoneNumber' => 'required',
-            'typeId' => 'required'
+            'typeId' => 'required',
+            'latitude' => 'required',
+            'longitude' => 'required',
         ]);
 
         if($validate->fails()){
@@ -164,11 +166,18 @@ class HomeController extends Controller
             'name' => $request->name,
             'address' => $request->address,
             'phoneNumber' => $request->phoneNumber,
-            'typeId' => $request->typeId
+            'typeId' => $request->typeId,
+            'createdBy' => $request->userId,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
+            'route' => $request->route,
+            'kecamatan' => $request->kecamatan,
+            'provinsi' => $request->provinsi,
+            'city' => $request->city,
         ]);
 
         $place->save();
-        return back();
+        return redirect("/place" . "/" . $request->id);
     }
 
     public function edit($id){
