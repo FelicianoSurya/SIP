@@ -14,12 +14,28 @@ class ProviderController extends Controller
 
     public function index(){
         $params = Isp::all();
-        return response()->json($params);
-        // return view('provider',[
-        //     'data' => $params
-        // ]);
+        // return response()->json($params);
+        return view('provider',[
+            'data' => $params
+        ]);
     }
     
+    public function createIsp(Request $request){
+        $validate = Validator::make($request->all(),[
+            'name' => 'required',
+        ]);
+        if($validate->fails()){
+            $request->session()->flash('validate','failed');
+            return back()->withErrors($validate);
+        }
+
+        $params = Isp::create([
+            'name' => $request->name,
+        ]);
+
+        return back();
+    }
+
     public function postProviderPlace(Request $request){
         $validate = Validator::make($request->all(),[
             'placeId' => 'required',
@@ -85,5 +101,25 @@ class ProviderController extends Controller
         }else{
             return back();
         }
+    }
+
+    public function edit(Request $request)
+    {
+        $id = $request->id;
+        $type = Isp::find($id);
+        $validate = Validator::make($request->all(),[
+            'name' => 'required'
+        ]);
+
+        if($validate->fails()){
+            return back();
+        }
+
+        $type->fill([
+            'name' => $request->name
+        ]);
+
+        $type->save();
+        return back();
     }
 }
