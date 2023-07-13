@@ -39,10 +39,11 @@
                                 </li>
                             @endif -->
                             @else
-                            <p>{{ auth()->user()->name }}</p>
+                            <div class="d-flex justify-content-center align-items-center">
                                 <li class="nav-item dropdown">
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                </a>
+                                        <p>{{ auth()->user()->name }}</p>
+                                        </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -55,6 +56,7 @@
                                     </form>
                                 </div>
                             </li>
+                            </div>
                         @endguest
                     </ul>
                 </div>

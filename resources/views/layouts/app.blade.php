@@ -28,7 +28,7 @@
             @include('layouts.header')
         </header>
 
-        <main class="py-5">
+        <main class="py-5" style="min-height:81.4vh">
             @yield('content')
         </main>
 
